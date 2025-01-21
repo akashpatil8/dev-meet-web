@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../utils/slices/userSlice";
 
 export default function Home() {
   const dispatch = useDispatch();

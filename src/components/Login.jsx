@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../utils/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 export default function Login() {
   const [email, setEmail] = useState("akash@gmail.com");
   const [password, setPassword] = useState("Akash@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ export default function Login() {
       dispatch(addUser(res.data.user));
       navigate("/feed");
     } catch (error) {
-      console.error(error.message);
+      setError(error?.response?.data);
     }
   }
 
@@ -70,6 +71,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <p className="text-red-400">{error}</p>
         <div className="card-actions justify-end">
           <button
             className="btn btn-ghost"

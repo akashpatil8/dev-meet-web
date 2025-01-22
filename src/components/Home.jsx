@@ -31,10 +31,10 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <NavBar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 }

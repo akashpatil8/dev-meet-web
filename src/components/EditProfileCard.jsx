@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/slices/userSlice";
+import { addUser } from "../redux/slices/userSlice";
 
 export default function EditProfileCard({ user }) {
   const [firstName, setFirstName] = useState(user?.firstName);

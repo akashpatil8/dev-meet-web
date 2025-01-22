@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addFeed } from "../utils/slices/feedSlice";
+import { addFeed } from "../redux/slices/feedSlice";
 import PersonCard from "./PersonCard";
 
 export default function Feed() {

@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { removeUser } from "../utils/slices/userSlice";
+import { removeUser } from "../redux/slices/userSlice";
+import { removeConnection } from "../redux/slices/connectionSlice";
+import { removeFeed } from "../redux/slices/feedSlice";
 
 export default function NavBar() {
   const user = useSelector((store) => store.user);
@@ -15,6 +17,8 @@ export default function NavBar() {
         {},
         { withCredentials: true },
       );
+      dispatch(removeConnection());
+      dispatch(removeFeed());
       dispatch(removeUser());
       navigate("/login");
     } catch (error) {
@@ -47,13 +51,13 @@ export default function NavBar() {
               className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-300 p-2 shadow"
             >
               <li>
-                <Link to="/profile/view" className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </Link>
+                <Link to="/profile/view">Profile</Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="connections">Connections</Link>
+              </li>
+              <li>
+                <Link to="connections">Requests</Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>

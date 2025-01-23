@@ -28,14 +28,15 @@ export default function Feed() {
   console.log(feedData);
 
   return (
-    <div className="">
+    <main className="flex flex-1 justify-center py-4">
+      {feedData?.length === 0 && (
+        <h1 className="text-2xl font-bold">There are no new users</h1>
+      )}
       {feedData?.length > 0 && (
-        <div className="m-8 grid grid-cols-2 gap-4">
-          {feedData?.map((person) => (
-            <PersonCard key={person?._id} personData={person} />
-          ))}
+        <div className="m-8">
+          <PersonCard personData={feedData[0]} />
         </div>
       )}
-    </div>
+    </main>
   );
 }

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../redux/slices/userSlice";
 import { removeConnection } from "../redux/slices/connectionSlice";
 import { removeFeed } from "../redux/slices/feedSlice";
+import { removeRequests } from "../redux/slices/requestSlice";
 
 export default function NavBar() {
   const user = useSelector((store) => store.user);
@@ -20,6 +21,7 @@ export default function NavBar() {
       dispatch(removeConnection());
       dispatch(removeFeed());
       dispatch(removeUser());
+      dispatch(removeRequests());
       navigate("/login");
     } catch (error) {
       console.error(error.message);
@@ -37,13 +39,19 @@ export default function NavBar() {
         <div className="flex-none gap-2">
           <div className="form-control"></div>
           <div className="dropdown dropdown-end mr-4">
-            <div
-              tabIndex={0}
-              role="button"
-              className="avatar btn btn-circle btn-ghost"
-            >
-              <div className="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component" src={user.imageUrl} />
+            <div className="flex items-center gap-4">
+              <span className="text-lg">Welcome, {user.firstName}</span>
+              <div
+                tabIndex={0}
+                role="button"
+                className="avatar btn btn-circle btn-ghost"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={user.imageUrl}
+                  />
+                </div>
               </div>
             </div>
             <ul

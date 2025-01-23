@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../redux/slices/connectionSlice";
-import PersonCard from "../components/PersonCard";
 import ConnectionCard from "../components/ConnectionCard";
 
 export default function Connections() {
@@ -27,14 +26,14 @@ export default function Connections() {
   }, []);
 
   return (
-    <main className="flex-1 p-4">
+    <main className="flex flex-1 flex-col items-center py-4">
       {connections?.length === 0 && (
         <h1 className="text-2xl font-bold">There are no connections</h1>
       )}
       {connections?.length > 0 && (
         <>
           <h1 className="text-center text-2xl font-bold">Connections</h1>
-          <div className="m-8 flex flex-col items-center gap-4">
+          <div className="m-8 flex w-full flex-col items-center gap-4">
             {connections?.map((person) => (
               <ConnectionCard key={person._id} person={person} />
             ))}

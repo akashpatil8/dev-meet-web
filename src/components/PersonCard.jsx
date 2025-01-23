@@ -1,5 +1,23 @@
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeOneFromFeed } from "../redux/slices/feedSlice";
+
 export default function PersonCard({ personData }) {
-  const { firstName, lastName, imageUrl, about, age, gender } = personData;
+  const { _id, firstName, lastName, imageUrl, about, age, gender } = personData;
+  const dispatch = useDispatch();
+
+  const handleRequestSend = async (status, id) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/request/send/${status}/${id}`,
+        {},
+        { withCredentials: true },
+      );
+      dispatch(removeOneFromFeed(id));
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <div className="card card-compact w-96 bg-base-300 shadow-xl">
@@ -15,8 +33,18 @@ export default function PersonCard({ personData }) {
           </p>
         )}
         <div className="card-actions justify-end">
-          <button className="btn btn-outline">Ignore</button>
-          <button className="btn btn-primary">Interested</button>
+          <button
+            onClick={() => handleRequestSend("ignored", _id)}
+            className="btn btn-outline"
+          >
+            Ignore
+          </button>
+          <button
+            onClick={() => handleRequestSend("interested", _id)}
+            className="btn btn-primary"
+          >
+            Interested
+          </button>
         </div>
       </div>
     </div>

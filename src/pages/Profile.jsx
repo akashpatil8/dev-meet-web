@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import EditProfileCard from "./EditProfileCard";
-import PersonCard from "./PersonCard";
+import EditProfileCard from "../components/EditProfileCard";
+import PersonCard from "../components/PersonCard";
 
 export default function Profile() {
   const user = useSelector((store) => store.user);

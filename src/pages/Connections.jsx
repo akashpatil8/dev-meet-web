@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../redux/slices/connectionSlice";
-import PersonCard from "./PersonCard";
+import PersonCard from "../components/PersonCard";
+import ConnectionCard from "../components/ConnectionCard";
 
 export default function Connections() {
   const connections = useSelector((store) => store.connections);
@@ -20,6 +21,7 @@ export default function Connections() {
     }
   };
 
+  console.log(connections);
   useEffect(() => {
     getConnections();
   }, []);
@@ -34,26 +36,7 @@ export default function Connections() {
           <h1 className="text-center text-2xl font-bold">Connections</h1>
           <div className="m-8 flex flex-col items-center gap-4">
             {connections?.map((person) => (
-              <div
-                key={person?._id}
-                className="flex w-1/2 items-center gap-10 rounded-lg bg-base-300 p-4"
-              >
-                <img
-                  src={person.imageUrl}
-                  className="h-32 w-32 rounded-full object-cover"
-                />
-                <div>
-                  <h1 className="text-xl font-medium text-slate-100">
-                    {person.firstName} {person.lastName}
-                  </h1>
-                  {person?.age && person?.gender && (
-                    <h2 className="mt-1 text-lg">
-                      {person.age}, {person.gender}
-                    </h2>
-                  )}
-                  <p className="mt-3 text-slate-500">{person.about}</p>
-                </div>
-              </div>
+              <ConnectionCard key={person._id} person={person} />
             ))}
           </div>
         </>

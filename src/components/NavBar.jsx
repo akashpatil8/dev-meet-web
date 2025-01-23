@@ -54,10 +54,10 @@ export default function NavBar() {
                 <Link to="/profile/view">Profile</Link>
               </li>
               <li>
-                <Link to="connections">Connections</Link>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
-                <Link to="connections">Requests</Link>
+                <Link to="/requests">Requests</Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>

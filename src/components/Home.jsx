@@ -8,7 +8,7 @@ import { addUser } from "../redux/slices/userSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
+  const { user } = useSelector((store) => store.user);
   const navigate = useNavigate();
 
   const getUser = async () => {

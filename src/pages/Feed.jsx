@@ -25,8 +25,6 @@ export default function Feed() {
     getFeedData();
   }, []);
 
-  console.log(feedData);
-
   return (
     <main className="flex flex-1 justify-center py-4">
       {feedData?.length === 0 && (

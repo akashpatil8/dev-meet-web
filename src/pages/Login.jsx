@@ -1,23 +1,25 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addUser } from "../redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, loadingUser, errorUser } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import toast from "react-hot-toast";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("rohit@gmail.com");
+  const [password, setPassword] = useState("Rohit@123");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+
+  const { user, isUserLoading, userError } = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function handleLogin() {
+    dispatch(loadingUser());
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -30,7 +32,8 @@ export default function Login() {
       dispatch(addUser(res.data.user));
       navigate("/feed");
     } catch (error) {
-      setError(error?.response?.data);
+      toast.error(userError || error?.response?.data?.message);
+      dispatch(errorUser(error?.response?.data?.message));
     }
   }
 
@@ -49,9 +52,13 @@ export default function Login() {
       dispatch(addUser(res.data.user));
       navigate("/profile/view");
     } catch (error) {
-      setError(error?.response?.data);
+      toast.error(userError || error?.response?.data?.message);
+      console.log(error?.response?.data?.message);
+      dispatch(errorUser(error?.response?.data?.message));
     }
   }
+
+  console.log(user, isUserLoading, userError);
 
   return (
     <main className="flex flex-1 items-center justify-center p-4">
@@ -107,7 +114,6 @@ export default function Login() {
               className="input input-bordered w-full max-w-xs"
             />
           </label>
-          <p className="text-red-400">{error}</p>
           <button
             onClick={() => setIsSignUp((val) => !val)}
             className="mb-3 cursor-pointer text-center text-sm hover:text-white"
@@ -121,7 +127,11 @@ export default function Login() {
               }}
               className="btn btn-primary"
             >
-              Login
+              {isUserLoading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
         </div>

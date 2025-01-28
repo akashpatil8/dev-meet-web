@@ -7,7 +7,7 @@ import { removeFeed } from "../redux/slices/feedSlice";
 import { removeRequests } from "../redux/slices/requestSlice";
 
 export default function NavBar() {
-  const user = useSelector((store) => store.user);
+  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

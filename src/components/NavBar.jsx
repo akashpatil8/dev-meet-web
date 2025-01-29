@@ -6,11 +6,11 @@ import { removeConnection } from "../redux/slices/connectionSlice";
 import { removeFeed } from "../redux/slices/feedSlice";
 import { removeRequests } from "../redux/slices/requestSlice";
 import logoImg from "../../public/assets/dev-meet-logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NavBar() {
   const { user } = useSelector((store) => store.user);
-  const [showDrawer, setShowDrawer] = useState(true);
+  const [showDrawer, setShowDrawer] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

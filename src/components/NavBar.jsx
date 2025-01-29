@@ -5,9 +5,12 @@ import { removeUser } from "../redux/slices/userSlice";
 import { removeConnection } from "../redux/slices/connectionSlice";
 import { removeFeed } from "../redux/slices/feedSlice";
 import { removeRequests } from "../redux/slices/requestSlice";
+import logoImg from "../../public/assets/dev-meet-logo.png";
+import { useState } from "react";
 
 export default function NavBar() {
   const { user } = useSelector((store) => store.user);
+  const [showDrawer, setShowDrawer] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,6 +35,7 @@ export default function NavBar() {
     <div className="navbar bg-base-300">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">
+          <img src={logoImg} alt="logo-img" className="h-6" />
           DevMeet
         </Link>
       </div>
@@ -42,7 +46,7 @@ export default function NavBar() {
             <div className="flex items-center gap-4">
               <span className="text-lg">Welcome, {user.firstName}</span>
               <div
-                tabIndex={0}
+                onClick={() => setShowDrawer(!showDrawer)}
                 role="button"
                 className="avatar btn btn-circle btn-ghost"
               >
@@ -54,23 +58,22 @@ export default function NavBar() {
                 </div>
               </div>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-300 p-2 shadow"
-            >
-              <li>
-                <Link to="/profile/view">Profile</Link>
-              </li>
-              <li>
-                <Link to="/connections">Connections</Link>
-              </li>
-              <li>
-                <Link to="/requests">Requests</Link>
-              </li>
-              <li>
-                <a onClick={handleLogout}>Logout</a>
-              </li>
-            </ul>
+            {showDrawer && (
+              <ul className="menu menu-sm absolute z-[1] mt-3 w-52 rounded-box bg-base-300 p-2 shadow">
+                <li onClick={() => setShowDrawer(false)}>
+                  <Link to="/profile/view">Profile</Link>
+                </li>
+                <li onClick={() => setShowDrawer(false)}>
+                  <Link to="/connections">Connections</Link>
+                </li>
+                <li onClick={() => setShowDrawer(false)}>
+                  <Link to="/requests">Requests</Link>
+                </li>
+                <li onClick={() => setShowDrawer(false)}>
+                  <a onClick={handleLogout}>Logout</a>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       )}

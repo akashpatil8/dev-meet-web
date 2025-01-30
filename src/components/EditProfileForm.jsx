@@ -5,13 +5,11 @@ import { addUser } from "../redux/slices/userSlice";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-export default function EditProfileCard({ user }) {
-  // const [firstName, setFirstName] = useState(user?.firstName);
-  // const [lastName, setLastName] = useState(user?.lastName);
-  // const [gender, setGender] = useState(user?.gender);
-  // const [age, setAge] = useState(user?.age);
-  // const [about, setAbout] = useState(user?.about);
-  // const [imageUrl, setImageUrl] = useState(user?.imageUrl);
+export default function EditProfileForm({
+  user,
+  setIsInEditMode,
+  isInEditMode,
+}) {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
 
@@ -42,6 +40,7 @@ export default function EditProfileCard({ user }) {
       );
       dispatch(addUser(res.data));
       toast.success("Profile updated successfully");
+      setIsInEditMode(false);
     } catch (error) {
       setError(error?.response?.data);
       console.log(error);
@@ -50,7 +49,7 @@ export default function EditProfileCard({ user }) {
 
   return (
     <form
-      className="card card-compact w-96 bg-base-300 p-4 shadow-xl"
+      className={`card card-compact w-96 bg-base-300 p-4 shadow-xl md:block ${isInEditMode ? "" : "hidden"}`}
       onSubmit={handleSubmit(handleUpdateProfile)}
     >
       <label className="form-control w-full max-w-xs">

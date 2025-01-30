@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { remvoveOneRequest } from "../redux/slices/requestSlice";
+import { BASE_URL } from "../utils/constants";
 
 export default function RequestCard({ person }) {
   const { firstName, lastName, age, gender, imageUrl, about } =
@@ -10,7 +11,7 @@ export default function RequestCard({ person }) {
   const handleRequestReview = async (status, id) => {
     try {
       await axios.post(
-        `http://localhost:3000/request/review/${status}/${id}`,
+        `${BASE_URL}/request/review/${status}/${id}`,
         {},
         { withCredentials: true },
       );

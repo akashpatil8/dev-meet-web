@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "../redux/slices/requestSlice";
 import RequestCard from "../components/RequestCard";
+import { BASE_URL } from "../utils/constants";
 
 export default function Requests() {
   const requests = useSelector((store) => store.requests);
@@ -11,10 +12,9 @@ export default function Requests() {
   const getRequests = async () => {
     if (requests) return;
     try {
-      const res = await axios.get(
-        "http://localhost:3000/user/requests/received",
-        { withCredentials: true },
-      );
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
+        withCredentials: true,
+      });
       dispatch(addRequests(res.data.data));
     } catch (error) {
       console.error(error.message);

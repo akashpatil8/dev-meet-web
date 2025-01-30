@@ -5,6 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../redux/slices/userSlice";
+import { BASE_URL } from "../utils/constants";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function Home() {
     if (user) return;
 
     try {
-      const res = await axios.get("http://localhost:3000/profile/view", {
+      const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
 

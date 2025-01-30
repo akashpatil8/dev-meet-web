@@ -1,16 +1,13 @@
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addUser } from "../redux/slices/userSlice";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import toast from "react-hot-toast";
 
-export default function EditProfileForm({
-  user,
-  setIsInEditMode,
-  isInEditMode,
-}) {
-  const [error, setError] = useState("");
+import { addUser, errorUser, loadingUser } from "../redux/slices/userSlice";
+import { BASE_URL } from "../utils/constants";
+
+export default function EditProfileForm({ setIsInEditMode, isInEditMode }) {
+  const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm({
@@ -25,10 +22,10 @@ export default function EditProfileForm({
   });
 
   const handleUpdateProfile = async (data) => {
-    setError("");
+    dispatch(loadingUser());
     try {
       const res = await axios.patch(
-        "http://localhost:3000/profile/edit",
+        BASE_URL + "/profile/edit",
         {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -38,12 +35,12 @@ export default function EditProfileForm({
         },
         { withCredentials: true },
       );
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.user));
       toast.success("Profile updated successfully");
       setIsInEditMode(false);
     } catch (error) {
-      setError(error?.response?.data);
-      console.log(error);
+      dispatch(errorUser(error?.message));
+      toast.error(error?.message);
     }
   };
 
@@ -111,7 +108,6 @@ export default function EditProfileForm({
           {...register("about")}
         ></textarea>
       </label>
-      {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
       <div className="card-actions mt-4 justify-end">
         <button className="btn btn-outline" onClick={() => {}}>
           Clear

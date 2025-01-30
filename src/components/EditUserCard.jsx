@@ -1,9 +1,9 @@
-export default function EditUserCard({
-  userData,
-  setIsInEditMode,
-  isInEditMode,
-}) {
-  const { firstName, lastName, imageUrl, about, age, gender } = userData;
+import { useSelector } from "react-redux";
+
+export default function EditUserCard({ setIsInEditMode, isInEditMode }) {
+  const { user } = useSelector((store) => store.user);
+
+  const { firstName, lastName, imageUrl, about, age, gender } = user;
 
   return (
     <div

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeOneFromFeed } from "../redux/slices/feedSlice";
+import { BASE_URL } from "../utils/constants";
 
 export default function PersonCard({ personData }) {
   const { _id, firstName, lastName, imageUrl, about, age, gender } = personData;
@@ -9,7 +10,7 @@ export default function PersonCard({ personData }) {
   const handleRequestSend = async (status, id) => {
     try {
       await axios.post(
-        `http://localhost:3000/request/send/${status}/${id}`,
+        `${BASE_URL}/request/send/${status}/${id}`,
         {},
         { withCredentials: true },
       );

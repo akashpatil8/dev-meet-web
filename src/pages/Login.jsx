@@ -64,9 +64,6 @@ export default function Login() {
     }
   }
 
-  console.log(errors?.firstName);
-  console.log(errors);
-
   return (
     <main className="flex flex-1 items-center justify-center p-4">
       <div className="card mx-auto w-96 bg-base-200 shadow-xl">

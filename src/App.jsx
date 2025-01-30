@@ -22,6 +22,7 @@ function App() {
             <Route path="/feed" index element={<Feed />} />
             <Route path="/connections" element={<Connections />} />
             <Route path="/requests" element={<Requests />} />
+            <Route path="*" element={<Navigate to="/feed" />} />
           </Route>
         </Routes>
       </BrowserRouter>

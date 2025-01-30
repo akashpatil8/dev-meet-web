@@ -7,6 +7,7 @@ import { removeFeed } from "../redux/slices/feedSlice";
 import { removeRequests } from "../redux/slices/requestSlice";
 import logoImg from "../../public/assets/dev-meet-logo.png";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../utils/constants";
 
 export default function NavBar() {
   const { user } = useSelector((store) => store.user);
@@ -16,11 +17,7 @@ export default function NavBar() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:3000/logout",
-        {},
-        { withCredentials: true },
-      );
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeConnection());
       dispatch(removeFeed());
       dispatch(removeUser());
